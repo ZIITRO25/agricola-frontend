@@ -1,0 +1,89 @@
+<div class="configuracion-container">
+  <aside class="sidebar">
+    <ul class="menu">
+      <li (click)="selectSection('departamentos')" [class.active]="selectedSection === 'departamentos'">Departamentos</li>
+      <li (click)="selectSection('cultivos')" [class.active]="selectedSection === 'cultivos'">Cultivos</li>
+      <li (click)="selectSection('herramientas')" [class.active]="selectedSection === 'herramientas'">Herramientas</li>
+      <li (click)="selectSection('consejos')" [class.active]="selectedSection === 'consejos'">Consejos</li>
+      <li (click)="selectSection('usuario')" [class.active]="selectedSection === 'usuario'">Usuarios</li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <h2>{{ selectedSection | titlecase }} Management</h2>
+
+    <div class="card-container" *ngIf="selectedSection !== 'usuario'">
+      <div class="card" *ngFor="let item of items">
+        <h3>{{ item.nombre || item.titulo }}</h3>
+        <p *ngIf="item.descripcion">Descripción: {{ item.descripcion }}</p>
+        <p *ngIf="item.cantidad">Cantidad: {{ item.cantidad }}</p>
+        <p *ngIf="item.contenido">Contenido: {{ item.contenido }}</p>
+        <div class="card-actions">
+          <button class="edit-btn" (click)="openForm(item)">Edit</button>
+          <button class="delete-btn" (click)="deleteItem(item)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-container" *ngIf="selectedSection === 'usuario'">
+      <div class="card" *ngFor="let user of items">
+        <h3>{{ user.username }}</h3>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.role }}</p>
+        <div class="card-actions">
+          <button class="edit-btn" (click)="openForm(user)">Edit</button>
+          <button class="delete-btn" (click)="deleteItem(user)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-btn" (click)="openForm()">Add New {{ selectedSection | titlecase }}</button>
+
+    <div *ngIf="showForm && selectedSection === 'usuario'" class="form-container">
+      <h3>{{ itemData.id ? 'Edit' : 'Add New' }} User</h3>
+      <form (ngSubmit)="saveItem()">
+        <label>Username</label>
+        <input [(ngModel)]="itemData.username" name="username" type="text" required />
+
+        <label>Email</label>
+        <input [(ngModel)]="itemData.email" name="email" type="email" required />
+
+        <label>Role</label>
+        <select [(ngModel)]="itemData.role" name="role" required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <label *ngIf="!itemData.id">Password</label>
+        <input *ngIf="!itemData.id" [(ngModel)]="itemData.password" name="password" type="password" required />
+
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" class="cancel-btn" (click)="cancelForm()">Cancel</button>
+      </form>
+    </div>
+
+    <div *ngIf="showForm && selectedSection !== 'usuario'" class="form-container">
+      <h3>{{ itemData.id ? 'Edit' : 'Add New' }} {{ selectedSection | titlecase }}</h3>
+      <form (ngSubmit)="saveItem()">
+        <label>Nombre</label>
+        <input [(ngModel)]="itemData.nombre" name="nombre" type="text" required />
+
+        <label *ngIf="selectedSection === 'departamentos' || selectedSection === 'cultivos' || selectedSection === 'herramientas'">Descripción</label>
+        <input *ngIf="selectedSection === 'departamentos' || selectedSection === 'cultivos' || selectedSection === 'herramientas'" [(ngModel)]="itemData.descripcion" name="descripcion" type="text" />
+
+        <label *ngIf="selectedSection === 'herramientas'">Cantidad</label>
+        <input *ngIf="selectedSection === 'herramientas'" [(ngModel)]="itemData.cantidad" name="cantidad" type="number" />
+
+        <label *ngIf="selectedSection === 'consejos'">Título</label>
+        <input *ngIf="selectedSection === 'consejos'" [(ngModel)]="itemData.titulo" name="titulo" type="text" required />
+
+        <label *ngIf="selectedSection === 'consejos'">Contenido</label>
+        <textarea *ngIf="selectedSection === 'consejos'" [(ngModel)]="itemData.contenido" name="contenido" required></textarea>
+
+        <button type="submit" class="save-btn">Guardar</button>
+        <button type="button" class="cancel-btn" (click)="cancelForm()">Cancelar</button>
+      </form>
+    </div>
+  </main>
+</div>
+

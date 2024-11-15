@@ -1,0 +1,90 @@
+
+.configuracion-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #2a9d8f;
+  color: #ffffff;
+  padding: 1rem;
+}
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu li:hover,
+.menu li.active {
+  background-color: #264653;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 1.5rem;
+}
+
+.entity-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.entity-table th,
+.entity-table td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+}
+
+.add-btn,
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
+  background-color: #2a9d8f;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover,
+.save-btn:hover,
+.cancel-btn:hover {
+  background-color: #264653;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  max-width: 500px;
+}
+
+.form-container h3 {
+  margin-top: 0;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}

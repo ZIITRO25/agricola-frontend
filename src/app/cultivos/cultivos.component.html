@@ -1,0 +1,8 @@
+<div class="card-container">
+    <div class="card" *ngFor="let cultivo of cultivos">
+      <h3>{{ cultivo.nombre }}</h3>
+      <p>{{ cultivo.descripcion }}</p>
+      <small>Plantado el: {{ cultivo.fecha_plantacion | date }}</small>
+    </div>
+  </div>
+  
